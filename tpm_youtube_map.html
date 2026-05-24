@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPM Cert — YouTube Study Map</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #f5f3ef;
+  color: #1a1a1a;
+  min-height: 100vh;
+  padding: 32px 22px 60px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.page-header { margin-bottom: 28px; border-bottom: 2px solid #1a1a1a; padding-bottom: 18px; }
+h1 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; letter-spacing: -0.5px; }
+.subtitle { font-size: 13px; color: #6b6b6b; line-height: 1.5; }
+
+/* TABS */
+.module-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+.tab {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px; font-weight: 700;
+  padding: 7px 14px; border-radius: 6px;
+  border: 1.5px solid #d0ccc5;
+  cursor: pointer; transition: all 0.15s;
+  background: #fff; color: #6b6b6b;
+  letter-spacing: 0.2px;
+}
+.tab:hover { border-color: #1a1a1a; color: #1a1a1a; }
+.tab.active { background: #1a1a1a; color: #f5f3ef; border-color: #1a1a1a; }
+
+/* PANELS */
+.module-panel { display: none; }
+.module-panel.active { display: block; }
+.module-meta { font-size: 13px; color: #6b6b6b; padding: 0 0 18px; line-height: 1.65; }
+
+/* SECTION BLOCKS */
+.section-block {
+  background: #fff;
+  border: 1.5px solid #e2ddd7;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; cursor: pointer;
+  transition: background 0.12s;
+}
+.section-header:hover { background: #faf8f5; }
+.section-badge {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px; font-weight: 800;
+  padding: 3px 8px; border-radius: 5px;
+  background: #f0ece6; color: #5c5148;
+  flex-shrink: 0; letter-spacing: 0.4px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13.5px; font-weight: 700;
+  color: #1a1a1a; flex: 1;
+}
+.chevron { color: #bbb; font-size: 12px; transition: transform 0.2s; flex-shrink: 0; }
+.section-block.open .chevron { transform: rotate(180deg); }
+
+/* SECTION CONTENT */
+.section-content { display: none; }
+.section-block.open .section-content { display: block; }
+
+/* VIDEOS */
+.videos-list { padding: 0 14px 4px; display: flex; flex-direction: column; gap: 7px; }
+.video-card {
+  background: #faf8f5;
+  border: 1px solid #e8e3dc;
+  border-radius: 7px;
+  padding: 11px 13px;
+  display: flex; align-items: flex-start; gap: 11px;
+}
+.video-info { flex: 1; min-width: 0; }
+.video-title { font-size: 13px; font-weight: 500; color: #1a1a1a; line-height: 1.4; margin-bottom: 3px; }
+.video-label { font-size: 11px; color: #888; font-style: italic; }
+.topic-tag {
+  font-size: 10px; font-weight: 600;
+  background: #ede9e2; color: #6b5e50;
+  border: 1px solid #ddd8cf;
+  padding: 2px 7px; border-radius: 5px;
+  flex-shrink: 0; align-self: flex-start; margin-top: 2px;
+}
+.yt-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #e8120a; color: white;
+  font-size: 10px; font-weight: 700;
+  padding: 5px 10px; border-radius: 5px;
+  text-decoration: none; flex-shrink: 0; margin-top: 1px;
+  transition: background 0.15s;
+}
+.yt-btn:hover { background: #c00f09; }
+.yt-btn::before { content: '▶'; font-size: 8px; }
+
+/* DIVIDER inside section */
+.inner-divider {
+  height: 1px; background: #e8e3dc;
+  margin: 12px 14px;
+}
+
+/* SCENARIO QUESTIONS */
+.scenario-wrap { padding: 0 14px 14px; }
+.scenario-header {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px; font-weight: 800;
+  color: #8b7355; letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+  display: flex; align-items: center; gap: 6px;
+}
+.scenario-header::before { content: '💬'; font-size: 12px; }
+.scenario-q {
+  background: #fdf9f4;
+  border-left: 3px solid #c9a96e;
+  border-radius: 0 6px 6px 0;
+  padding: 10px 13px;
+  margin-bottom: 7px;
+}
+.scenario-q p {
+  font-size: 12.5px;
+  color: #2a2a2a;
+  line-height: 1.6;
+}
+.scenario-q .q-label {
+  font-size: 10px; font-weight: 700;
+  color: #a07840; margin-bottom: 4px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.reveal-btn {
+  font-size: 10px; font-weight: 600;
+  color: #a07840; background: none;
+  border: 1px solid #c9a96e;
+  border-radius: 4px; padding: 3px 9px;
+  cursor: pointer; margin-top: 7px;
+  transition: all 0.15s;
+}
+.reveal-btn:hover { background: #c9a96e; color: white; }
+.answer-text {
+  display: none;
+  font-size: 12px; color: #5a5a5a;
+  margin-top: 8px; line-height: 1.6;
+  font-style: italic;
+  padding-top: 8px;
+  border-top: 1px dashed #e0d4c0;
+}
+.answer-text.visible { display: block; }
+
+/* MODULE ASSIGNMENT */
+.module-assignment {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  border-radius: 10px;
+  margin-top: 18px;
+  overflow: hidden;
+}
+.assignment-header {
+  background: #1a1a1a;
+  color: #f5f3ef;
+  padding: 13px 18px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+}
+.assignment-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 800;
+  letter-spacing: 0.2px; flex: 1;
+}
+.assignment-badge {
+  font-size: 10px; font-weight: 700;
+  background: #f5f3ef; color: #1a1a1a;
+  padding: 3px 8px; border-radius: 4px;
+}
+.assignment-chevron { color: #aaa; font-size: 12px; transition: transform 0.2s; }
+.module-assignment.open .assignment-chevron { transform: rotate(180deg); }
+.assignment-body { display: none; padding: 18px 18px 20px; }
+.module-assignment.open .assignment-body { display: block; }
+.assignment-intro {
+  font-size: 13px; color: #3a3a3a; line-height: 1.65;
+  margin-bottom: 16px;
+}
+.task-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.task-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #faf8f5;
+  border: 1px solid #e2ddd7;
+  border-radius: 7px;
+  padding: 11px 13px;
+}
+.task-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px; font-weight: 800;
+  color: #fff; background: #1a1a1a;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.task-body { flex: 1; }
+.task-title { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+.task-desc { font-size: 12px; color: #666; line-height: 1.55; }
+.task-tip {
+  font-size: 11px; color: #a07840;
+  background: #fdf9f4; border: 1px solid #e8d9be;
+  border-radius: 4px; padding: 4px 9px;
+  margin-top: 7px; display: inline-block;
+}
+.deliverable-tag {
+  font-size: 10px; font-weight: 700;
+  background: #e8f4e8; color: #2d6e2d;
+  border: 1px solid #b8ddb8;
+  border-radius: 4px; padding: 2px 7px;
+  margin-left: 6px; vertical-align: middle;
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 600px) {
+  body { padding: 20px 14px 40px; }
+  h1 { font-size: 22px; }
+  .subtitle { font-size: 12px; }
+
+  /* Tabs: scroll horizontally if needed */
+  .module-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    margin: 0 -14px 20px;
+    padding-left: 14px; padding-right: 14px;
+  }
+  .module-tabs::-webkit-scrollbar { display: none; }
+  .tab { flex-shrink: 0; font-size: 10.5px; padding: 6px 11px; }
+
+  /* Section headers: tighten */
+  .section-header { padding: 12px 13px; gap: 8px; }
+  .section-title { font-size: 12.5px; line-height: 1.35; }
+  .section-badge { font-size: 9px; padding: 2px 6px; }
+
+  /* Video cards: stack vertically */
+  .video-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px;
+  }
+  .video-title { font-size: 12.5px; }
+  .video-label { font-size: 10.5px; }
+  .topic-tag {
+    align-self: flex-start;
+    margin-top: 0;
+  }
+  .yt-btn {
+    align-self: flex-start;
+    padding: 6px 12px;
+    font-size: 11px;
+    margin-top: 0;
+  }
+  .videos-list { padding: 0 12px 4px; }
+
+  /* Scenario questions */
+  .scenario-wrap { padding: 0 12px 12px; }
+  .scenario-q { padding: 10px 11px; }
+  .scenario-q p { font-size: 12px; }
+  .reveal-btn { font-size: 11px; padding: 5px 11px; }
+  .answer-text { font-size: 11.5px; }
+
+  /* Module assignments */
+  .assignment-header { padding: 12px 14px; gap: 8px; }
+  .assignment-title { font-size: 12px; }
+  .assignment-body { padding: 14px 14px 16px; }
+  .task-item { padding: 11px; gap: 10px; }
+  .task-title { font-size: 12.5px; }
+  .task-desc { font-size: 11.5px; }
+  .task-tip { font-size: 10.5px; }
+  .deliverable-tag {
+    display: inline-block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🎬 TPM Cert — YouTube Study Map</h1>
+  <p class="subtitle">Every Skiplevel section matched to free YouTube videos + TPM scenario questions + module assignments.<br>Click any section to expand · Click "Show Answer" to check your thinking.</p>
+</div>
+
+<div class="module-tabs">
+  <div class="tab active" onclick="showModule(0,this)">M1 · Apps &amp; Infra</div>
+  <div class="tab" onclick="showModule(1,this)">M2 · Speed &amp; Perf</div>
+  <div class="tab" onclick="showModule(2,this)">M3 · Databases</div>
+  <div class="tab" onclick="showModule(3,this)">M4 · Architecture</div>
+  <div class="tab" onclick="showModule(4,this)">M5 · SDLC</div>
+</div>
+
+<!-- ===================== MODULE 1 ===================== -->
+<div class="module-panel active" id="panel-0">
+<p class="module-meta">Build your technical foundation: internet protocols, cloud infrastructure, frontend/backend, tech stacks, and APIs.</p>
+
+<!-- 1.1 -->
+<div class="section-block open">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">1.1</span>
+    <span class="section-title">How Does the Internet Work?</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">IP Addresses &amp; DNS — Khan Academy (Vint Cerf, Internet co-founder)</div>
+          <div class="video-label">Covers: TCP/IP, DNS, IP addresses, data packets · ~8 min</div>
+        </div>
+        <span class="topic-tag">Protocols &amp; DNS</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=MwxMsaFFycg" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">DNS Explained — DNS Made Easy</div>
+          <div class="video-label">Covers: DNS lookup flow, domain → IP resolution · ~6 min</div>
+        </div>
+        <span class="topic-tag">DNS Deep Dive</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=72snZctFFtA" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your engineer says the app "can't connect to the backend." A user in Tokyo is hitting a 503 error but users in New York are fine. What's your first question to the engineering team and why?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Ask whether the issue is DNS-related or routing-related — specifically whether the DNS record for that region is resolving correctly, and whether the server serving Tokyo requests is healthy. A regional failure often points to a specific server farm or CDN edge node being down, not the entire service.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>A stakeholder asks: "Why does our app take 3 seconds to load when I'm on hotel Wi-Fi in Singapore but loads instantly at home?" How do you explain this without jargon?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Explain that data travels physically through cables under the ocean. Hotel Wi-Fi adds extra hops between their device and the network, and if your servers are in North America, the round-trip distance for every packet adds real time. Slow Wi-Fi also means smaller bandwidth — like a garden hose vs a fire hose — so the same data just takes longer.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">1.2</span>
+    <span class="section-title">Cloud Computing</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Virtualization Basics: Foundation of Cloud Computing — Beginner</div>
+          <div class="video-label">Covers: What is the cloud, virtual machines, images &amp; instances · ~15 min</div>
+        </div>
+        <span class="topic-tag">Cloud &amp; VMs</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=nxZ4hs_9ccE" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">AWS EC2 Auto Scaling — How it Works (Digital Cloud Training)</div>
+          <div class="video-label">Covers: Auto-scaling, horizontal vs vertical scaling in AWS · ~12 min</div>
+        </div>
+        <span class="topic-tag">Auto-Scaling</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=rcWgcFMlwFw" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your PM asks: "Can we just make our servers bigger so the app doesn't crash during our product launch?" What are the trade-offs and what would you recommend instead?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Making servers bigger is vertical scaling — it has a ceiling and requires downtime to resize. A better approach for a launch spike is horizontal scaling with auto-scaling groups: spin up more instances automatically when traffic spikes and wind them down after. This is more resilient, avoids a single point of failure, and only costs money during the spike.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>Engineering tells you that auto-scaling "kicked in" during last night's traffic spike but users still experienced slowness for 90 seconds. Why might that happen and what should you ask?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">New instances take time to start up, pass health checks, and register with the load balancer — this warm-up period is the likely culprit. Ask: what is the current instance startup time? Can we use pre-warmed instances or scheduled scaling before the spike? Could we set a higher minimum instance count during the event window?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">1.3</span>
+    <span class="section-title">The Application Layer</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Frontend, Backend &amp; API in Simple Words</div>
+          <div class="video-label">Covers: 3 layers of the app, client-side vs server-side differences · ~8 min</div>
+        </div>
+        <span class="topic-tag">FE vs BE</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=W1T0rLGz9Jw" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Decoding Frontend &amp; Backend — Product Manager Lesson</div>
+          <div class="video-label">Covers: Developer tools, binary code, client-side code demo · ~20 min</div>
+        </div>
+        <span class="topic-tag">PM Lens</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=2B-JsCdFrKE" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>A designer wants to add real-time price updates to a product page (price changes every few seconds). An engineer says this is "a backend change, not frontend." Why is this statement incomplete and what should you clarify?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Real-time updates require both sides to change. The backend needs to expose a way to push or serve live data (e.g. websockets or polling endpoint), and the frontend needs to listen for those updates and re-render without a full page reload. Framing it as backend-only misses the client-side rendering work and the state management needed in the UI.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>A bug report says "the button works in Chrome but not Safari." What layer of the stack is most likely responsible, and how does that affect how you prioritize the fix?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">This is almost certainly a frontend/client-side issue — browser rendering inconsistencies live in the presentation layer. Since it's isolated to one browser, it affects a specific portion of your user base (check your analytics for Safari share). Prioritize based on that percentage: if 20%+ of users are on Safari, escalate quickly. It likely only requires a CSS or JS compatibility fix, not a backend change.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.4 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">1.4</span>
+    <span class="section-title">Tech Stacks</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Back End for Beginners: Connect Frontend to Your Own API</div>
+          <div class="video-label">Covers: Node.js/runtime environments, libraries, frameworks, web servers · ~35 min</div>
+        </div>
+        <span class="topic-tag">Stacks &amp; Runtime</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=8PMLZ3hkKXM" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your team is evaluating whether to use React or Vue for a new internal dashboard. The engineering lead says "it doesn't matter, they both do the same thing." How do you facilitate this decision as a TPM?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">As a TPM, push for a decision framework rather than a debate. Key questions: What does your existing team know? (Hiring/onboarding cost matters.) What does the rest of your stack use? (React if you're already using it means no new context-switching.) What's the longer-term ecosystem need? Both are frameworks on top of JavaScript, so the real tradeoff is team expertise, ecosystem fit, and long-term maintainability — document the reasoning and get alignment, rather than leaving it open-ended.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.5 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">1.5</span>
+    <span class="section-title">Understanding APIs</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">A Beginner's Guide to REST APIs in Under 10 Minutes</div>
+          <div class="video-label">Covers: Endpoints, request methods, response codes, headers, body · ~10 min</div>
+        </div>
+        <span class="topic-tag">API Anatomy</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=LzOtbUw6f_o" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Working with APIs as a Product Manager (Workshop)</div>
+          <div class="video-label">Covers: Designing, mocking &amp; testing APIs — maps to the Postman assignment · ~45 min</div>
+        </div>
+        <span class="topic-tag">PM + Postman</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=OFqZ_MKECH0" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">How Frontend &amp; Backend Communicate via REST APIs</div>
+          <div class="video-label">Covers: Path &amp; query parameters, full request/response flow · ~18 min</div>
+        </div>
+        <span class="topic-tag">FE/BE Flow</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=YYOeA3lAlz0" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>A third-party payment API your team depends on starts returning 429 errors. Users can't check out. What does 429 mean, and what questions do you ask engineering immediately?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">429 means "Too Many Requests" — you've exceeded the rate limit the payment provider allows. Ask: What is our current rate limit with this provider? Are we caching responses where possible? Do we have exponential backoff implemented (retry logic that slows down as requests fail)? Can we temporarily queue requests rather than dropping them? And — can we call the provider to request a temporary rate limit increase?</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>Product wants to add a "Share to Social" feature. Engineering says they'll use the platform's API. As a TPM, what API-related risks should you surface before sprint planning?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Key risks: (1) Rate limiting — how many share calls per hour/day are allowed? (2) API versioning — what happens when the platform deprecates an endpoint? (3) Auth/token management — do we need OAuth flows? (4) Terms of service — does the platform allow programmatic sharing? (5) Response time — if the API is slow, does it block our UI? Surface these before sprint planning so engineering can scope accordingly.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 1 ASSIGNMENT -->
+<div class="module-assignment" id="assign-0">
+  <div class="assignment-header" onclick="togAssign(this)">
+    <span class="assignment-badge">M1 Assignment</span>
+    <span class="assignment-title">📋 Module 1 TPM Competency Assignment</span>
+    <span class="assignment-chevron">▼</span>
+  </div>
+  <div class="assignment-body">
+    <p class="assignment-intro">Complete all three tasks to demonstrate Module 1 competency. These mirror the Skiplevel curriculum exercises but are framed around your role as a TPM.</p>
+    <ul class="task-list">
+      <li class="task-item">
+        <div class="task-num">1</div>
+        <div class="task-body">
+          <div class="task-title">Map a User Request End-to-End <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">Pick any feature of an app you use daily (e.g. searching on Spotify, adding to cart on Amazon). Write a 1-page narrative describing exactly what happens technically from the moment the user clicks — covering DNS lookup, HTTP request, server processing, and response. Use the correct terms: TCP/IP, server, API, response code.</div>
+          <div class="task-tip">💡 Tip: Draw it as a diagram first (even on paper), then write the narrative from that.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">2</div>
+        <div class="task-body">
+          <div class="task-title">Design &amp; Mock an API in Postman <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Using Postman's free tier, design a mock REST API for a simple product catalogue. Create at minimum: GET /products (returns list), POST /products (adds a product), GET /products/:id (single product). Define a 200 OK and a 404 Not Found response for each. Export and save your collection.</div>
+          <div class="task-tip">💡 Tip: This directly mirrors Skiplevel's Postman exercise — do this one on the Skiplevel platform too for the certificate credit.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">3</div>
+        <div class="task-body">
+          <div class="task-title">Tech Stack Audit <span class="deliverable-tag">Research</span></div>
+          <div class="task-desc">Research the tech stack of a company in your target industry (use LinkedIn job postings, StackShare.io, or engineering blogs). Identify: what frontend framework they use, what backend language/runtime, what cloud provider, and whether they mention any APIs. Write a 1-paragraph summary explaining what each piece does and why the company likely chose it.</div>
+          <div class="task-tip">💡 Tip: Stripe, Airbnb, and Shopify all have public engineering blogs with stack details.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ===================== MODULE 2 ===================== -->
+<div class="module-panel" id="panel-1">
+<p class="module-meta">Learn how distance, bandwidth, caching, and rendering strategies affect app speed, performance, and availability.</p>
+
+<!-- 2.1 -->
+<div class="section-block open">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">2.1</span>
+    <span class="section-title">Physical Limitations &amp; CDNs</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">CDNs Explained in 6 Minutes — System Design Basics</div>
+          <div class="video-label">Covers: Latency, internet cables, Points of Presence (PoPs), CDN in action · ~6 min</div>
+        </div>
+        <span class="topic-tag">CDN &amp; Latency</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=PMQdGWt3_L4" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">CDN Explained: Edge Servers, DNS Routing &amp; Global Caching</div>
+          <div class="video-label">Covers: CDN architecture, how CDNs eliminate distance latency · ~14 min</div>
+        </div>
+        <span class="topic-tag">Edge Servers</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=Q47xD3lEtwQ" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your product is launching in Southeast Asia. Engineering says images load in 400ms for US users but 3.2 seconds for users in Thailand. What's the most likely cause and what's the fastest technical fix?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">The images are being served from a server located in the US or Europe — physical distance is the bottleneck. The fastest fix is to put a CDN in front of your image assets. A CDN caches images at edge servers geographically close to Thailand (e.g. Singapore), so subsequent requests load from nearby instead of crossing the Pacific. This can reduce image load time by 60–80% with minimal engineering effort.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>The VP of Engineering says "CDNs are expensive, let's not add one." You're launching a media-heavy feature. How do you make the business case?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Frame it in user and business terms: slow load times increase bounce rate — studies show each second of delay reduces conversions by ~7%. For a media-heavy feature, your origin server also takes a hit on every image request without a CDN, meaning higher compute costs and potential failure under load. CDN costs are often lower than the compute savings from offloading traffic. Present the math: CDN cost vs. expected server savings + projected conversion impact.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">2.2</span>
+    <span class="section-title">Network Speed &amp; Caching</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Caching Levels Explained: Browser, CDN, Reverse Proxy &amp; App Caching</div>
+          <div class="video-label">Covers: All four caching types, cache purging — maps to Skiplevel's full caching section · ~18 min</div>
+        </div>
+        <span class="topic-tag">All Caching Types</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=1nfWRQChMgk" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">CDNs: Latency Reduction, Caching &amp; More — DebugBear</div>
+          <div class="video-label">Covers: Bandwidth, graceful degradation, incremental loading · ~20 min</div>
+        </div>
+        <span class="topic-tag">Bandwidth &amp; Loading</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=7pYEOEA-aR4" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>After deploying a critical pricing fix, some users still see the old prices. Support is getting flooded. Engineering says "the database is updated." What's happening and how do you fix it?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">The old prices are being served from cache — either the CDN, the application cache, or the browser cache. Even though the database is correct, stale cached responses are still being returned. The fix is a cache purge or cache invalidation targeted at the pricing endpoint or page. Ask engineering: which caching layers are in front of the pricing data? Can we purge only that content without clearing the entire cache? Going forward, implement short cache TTLs for pricing data or use cache-busting keys.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>A user complains your app "shows broken images on slow connections." How would you explain graceful degradation to a non-technical stakeholder, and what engineering approach solves it?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Graceful degradation means the app still works at reduced quality when conditions are bad — like a car that can still drive with a flat tyre. For images: use incremental loading (show a blurred low-res placeholder while the full image loads), and specify image dimensions in code so the layout doesn't jump. For very slow connections, detect network speed and serve compressed images automatically. The user experience degrades gracefully instead of breaking entirely.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">2.3</span>
+    <span class="section-title">Process Efficiency (CSR, SSR, Async)</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">What is Client-Side Rendering (CSR) vs Server-Side Rendering (SSR)?</div>
+          <div class="video-label">Covers: How CSR/SSR work, pros and cons, when to use each · ~10 min</div>
+        </div>
+        <span class="topic-tag">CSR vs SSR</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=RMdHNoT6Pdk" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">SSR &amp; CSR — Pros, Cons &amp; When to Use Each</div>
+          <div class="video-label">Covers: Sync vs async processing, fault tolerance in async, refactoring · ~12 min</div>
+        </div>
+        <span class="topic-tag">Sync &amp; Async</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=ObrSuDYMl1s" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your SEO team says your React app's pages aren't being indexed by Google properly. Engineering says "our pages load fine." What's the underlying technical conflict and what's the resolution?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">React apps are Client-Side Rendered (CSR) — the server sends a mostly empty HTML shell, and JavaScript in the browser builds the page. Some search engine crawlers don't wait for JavaScript to execute, so they see empty content. The fix is Server-Side Rendering (SSR) or Static Site Generation for SEO-critical pages: the server sends fully rendered HTML so crawlers can read the content immediately. Frameworks like Next.js handle this.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>An engineer proposes making the checkout process asynchronous so users don't wait for the payment confirmation. A stakeholder is worried this will confuse users. How do you mediate this?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Async processing means the user gets an immediate "we're processing your order" response while the payment is confirmed in the background — reducing wait time but adding communication complexity. The stakeholder concern is valid: users need clear feedback. The solution is a well-designed loading state + email/push confirmation when the async task completes. Ask engineering to ensure fault tolerance (what happens if payment fails after the user is told it succeeded?) and work with design on the UX communication.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 2 ASSIGNMENT -->
+<div class="module-assignment" id="assign-1">
+  <div class="assignment-header" onclick="togAssign(this)">
+    <span class="assignment-badge">M2 Assignment</span>
+    <span class="assignment-title">📋 Module 2 TPM Competency Assignment</span>
+    <span class="assignment-chevron">▼</span>
+  </div>
+  <div class="assignment-body">
+    <p class="assignment-intro">These tasks build your ability to reason about performance trade-offs and communicate them to both technical and non-technical stakeholders.</p>
+    <ul class="task-list">
+      <li class="task-item">
+        <div class="task-num">1</div>
+        <div class="task-body">
+          <div class="task-title">Performance Audit of a Live Website <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Run any public website through Google PageSpeed Insights (free). Screenshot the results. Write a 1-page TPM brief identifying: (a) the top 3 performance issues flagged, (b) whether they are frontend/backend/network issues, and (c) what you would prioritize fixing first and why — framed around user impact.</div>
+          <div class="task-tip">💡 Tip: Try a competitor's site or a product you admire. PageSpeed gives you real data to work with.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">2</div>
+        <div class="task-body">
+          <div class="task-title">Set Up AWS CloudFront CDN <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Using a free AWS account, create an S3 bucket, upload a sample image, and distribute it via AWS CloudFront. Compare load times with and without the CDN (use browser DevTools Network tab). Document your observations: what changed, by how much, and what that means for a real-world product.</div>
+          <div class="task-tip">💡 This is the exact exercise in Skiplevel — completing it here earns credit toward your certificate too.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">3</div>
+        <div class="task-body">
+          <div class="task-title">CSR vs SSR Recommendation Memo <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">Your company is building a public-facing marketing site and a private internal analytics dashboard. Write a short memo (half a page) recommending whether each should use CSR or SSR and why. Justify using the criteria of: SEO needs, time-to-first-byte, interactivity requirements, and team expertise.</div>
+          <div class="task-tip">💡 Tip: The right answer is different for each — that's the point of the exercise.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ===================== MODULE 3 ===================== -->
+<div class="module-panel" id="panel-2">
+<p class="module-meta">Understand how data is stored, structured, and queried — SQL, NoSQL, schema design, and AWS DynamoDB.</p>
+
+<!-- 3.1 -->
+<div class="section-block open">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">3.1</span>
+    <span class="section-title">Where is Data Stored?</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Relational vs. NoSQL: Databases Explained Simply — Google Cloud</div>
+          <div class="video-label">Covers: SQL intro, relational tables, NoSQL types (document, KV, graph) · ~8 min</div>
+        </div>
+        <span class="topic-tag">SQL vs NoSQL</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=R0XlH8FUEc8" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">An Introduction to NoSQL Databases</div>
+          <div class="video-label">Covers: All major non-relational database types with examples · ~15 min</div>
+        </div>
+        <span class="topic-tag">NoSQL Types</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=uD3p_rZPBUQ" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Engineering is debating whether to use PostgreSQL or MongoDB for a new user profile feature. As a TPM, what questions do you ask to help them decide?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Ask: (1) Is the data structure fixed or variable? (User profiles with flexible fields → MongoDB. Rigid structured data → PostgreSQL.) (2) Will we need complex queries across multiple data types? (SQL handles joins better.) (3) What does the rest of our stack use? (Consistency reduces operational complexity.) (4) What are the read/write patterns? (High write volume, document-oriented → NoSQL often wins.) (5) Do we need ACID transactions? (SQL is stronger here for financial or order data.)</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>A stakeholder asks: "Why can't we just store everything in one big spreadsheet?" How do you explain why databases exist and why structure matters?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">A spreadsheet works for hundreds of rows but breaks at scale — no enforced rules on data types, no efficient searching, no concurrent users, and no relationships between data sets. A database enforces structure (so no one accidentally puts text in a number field), allows thousands of users to read/write simultaneously without conflicts, handles millions of rows efficiently through indexing, and creates links between related data (e.g. a user → their orders → each order's products) without duplicating everything.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">3.2</span>
+    <span class="section-title">How Should Data Be Stored? (Schema Design)</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">SQL Database Tutorial: Schema, Tables, Data Types &amp; Constraints</div>
+          <div class="video-label">Covers: Schema design, maintainability, security, timestamps · ~15 min</div>
+        </div>
+        <span class="topic-tag">Schema Design</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=vOk3X2_GOCM" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">SQL vs NoSQL — Schema Design, Scalability &amp; Relationships</div>
+          <div class="video-label">Covers: Relational model, table relationships, latency tradeoffs · ~12 min</div>
+        </div>
+        <span class="topic-tag">Relationships</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=YgNvOFSuSG4" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Product wants to add a "user tags" feature that lets users add unlimited custom labels to their profile. Engineering says this will require a schema change. Why, and what should you understand about the implications?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Currently the schema likely has a fixed set of columns for user data. "Unlimited custom tags" is a one-to-many relationship — one user, many tags — which needs a separate Tags table linked by user ID. Schema migrations on live databases carry risk: they can lock tables, require downtime, or cause performance issues at scale. As a TPM, ask: what is the migration plan? Will it require downtime? How large is the users table today? And — are we planning for future tag filtering/search, which changes the indexing requirements?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">3.3</span>
+    <span class="section-title">Accessing &amp; Retrieving Data</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">SQL vs NoSQL OneShot for Beginners — Simplilearn</div>
+          <div class="video-label">Covers: Writing SQL queries, DBMS clients, SDK access, CLI · ~40 min</div>
+        </div>
+        <span class="topic-tag">SQL Queries</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=I_Qtbw35g5o" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your analytics team says a dashboard query is taking 45 seconds to load. Engineering says "it's just a slow query." What follow-up questions show you understand the problem at a technical level?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Ask: (1) Is the query doing a full table scan? (Missing index.) (2) How large is the table it's querying? (Millions of rows without indexes = slow.) (3) Is this query running in real-time or could we pre-compute it? (Move to a reporting/analytics replica or a data warehouse.) (4) Is this query being cached anywhere? (Dashboards don't need real-time data — a 5-min cache could eliminate the problem.) (5) Can we add an index on the columns being filtered? These questions show you understand that slow queries are usually an indexing, caching, or architecture problem, not just "code that runs slow."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 3 ASSIGNMENT -->
+<div class="module-assignment" id="assign-2">
+  <div class="assignment-header" onclick="togAssign(this)">
+    <span class="assignment-badge">M3 Assignment</span>
+    <span class="assignment-title">📋 Module 3 TPM Competency Assignment</span>
+    <span class="assignment-chevron">▼</span>
+  </div>
+  <div class="assignment-body">
+    <p class="assignment-intro">These tasks build your ability to participate meaningfully in data and schema conversations, and to ask the right questions when requirements meet database reality.</p>
+    <ul class="task-list">
+      <li class="task-item">
+        <div class="task-num">1</div>
+        <div class="task-body">
+          <div class="task-title">Design a Database Schema from a PRD <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Write a mini Product Requirements Document for a simple "event registration" app (users, events, registrations). Then design the database schema: list every table, its columns, data types, and the relationships between tables. Use dbdiagram.io (free) to draw it visually and export the diagram.</div>
+          <div class="task-tip">💡 Tip: Think about what data you'll need to query — "show all events a user is registered for" — and make sure your schema supports it.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">2</div>
+        <div class="task-body">
+          <div class="task-title">Write Basic SQL Queries <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Using SQLiteOnline.com (free, no install), create a sample users table and write the following queries: SELECT all users, SELECT users filtered by a condition, INSERT a new user, UPDATE a user's email. Screenshot each query and result. This mirrors Skiplevel's MySQL Workbench exercise.</div>
+          <div class="task-tip">💡 Tip: You don't need to memorize SQL syntax — you need to understand what each command does so you can review queries engineers write.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">3</div>
+        <div class="task-body">
+          <div class="task-title">Set Up AWS DynamoDB Tables <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Using a free AWS account, create two DynamoDB tables for a campaign scenario (e.g. Users and Registrations). Define the primary keys and at least one sort key. Then write a brief reflection: how did thinking about access patterns before designing the schema change your decisions?</div>
+          <div class="task-tip">💡 This mirrors Skiplevel's DynamoDB exercise exactly — complete it here AND on Skiplevel for certificate credit.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ===================== MODULE 4 ===================== -->
+<div class="module-panel" id="panel-3">
+<p class="module-meta">System design blueprints: monoliths, microservices, load balancing, proxy servers, and message queues.</p>
+
+<!-- 4.1 -->
+<div class="section-block open">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">4.1</span>
+    <span class="section-title">Software Architecture</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Monolithic vs Microservice Architecture: Which to Use and When?</div>
+          <div class="video-label">Covers: Architecture trade-offs, FE/BE interactions in each pattern · ~18 min</div>
+        </div>
+        <span class="topic-tag">Architecture</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=NdeTGlZ__Do" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Microservices vs Monolithic Architecture — In-Depth (Honeypot)</div>
+          <div class="video-label">Covers: Real-world trade-offs, visualizing microservices interactions · ~25 min</div>
+        </div>
+        <span class="topic-tag">Deep Dive</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=6-Wu178sOEE" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Engineering proposes breaking your monolith into microservices "to be more scalable." The team is 4 engineers. What are the real trade-offs and how do you facilitate the right decision?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Microservices add significant operational complexity — each service needs its own deployment pipeline, monitoring, and network communication layer. For a 4-person team, that overhead often costs more than it saves. Push back with: What specific scaling problem are we solving today? (If none exists yet, it's premature optimization.) A well-structured monolith is easier to develop, test, and debug at this scale. Consider a modular monolith as a middle ground — clean separation of concerns without the distributed systems overhead. Revisit microservices when a specific service needs to scale independently.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>One of your microservices (the payment service) is down. How do you think through the blast radius of this failure and what does it tell you about your architecture?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Map which user-facing flows depend on the payment service: checkout, subscription renewal, refunds. Those are down. Now ask: did the failure cascade? Did other services try to call payment and fail loudly (crashing their own processes) or fail gracefully (returning an error and continuing)? Good microservice architecture uses circuit breakers to prevent cascading failures. This incident is a chance to audit: which services are tightly coupled to payment? Where do we lack graceful degradation? Update your incident runbook and consider adding fallback behaviour.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">4.2</span>
+    <span class="section-title">High Traffic Dilemma (Load Balancing)</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Load Balancing, Auto Scaling &amp; High Availability — with Demo</div>
+          <div class="video-label">Covers: Load balancers, proxy servers, popular tools like NGINX · ~30 min</div>
+        </div>
+        <span class="topic-tag">Load Balancing</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=nHnSKgyftAw" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your app is launching on Product Hunt tomorrow. Engineering says "we can handle it." How do you validate that claim and what do you put in place as a TPM?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Don't rely on intuition. Ask engineering to run a load test simulating expected peak traffic (tools: k6, Locust, Artillery). Confirm: Is load balancing configured? Are auto-scaling rules set with appropriate minimum/maximum instance counts? What is the database connection pool limit? Do we have a rollback plan if something goes wrong? Set up a war room channel for the launch window, assign an on-call engineer, and have a communication template ready if the site degrades. "We can handle it" is not a plan.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.3 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">4.3</span>
+    <span class="section-title">Message Queues &amp; Email Outage Scenario</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Microservices and Message Queues — Explained</div>
+          <div class="video-label">Covers: How queues work, polling, solving email outage scenarios · ~20 min</div>
+        </div>
+        <span class="topic-tag">Queue Basics</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=r5byURobuaQ" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">HTTP vs AMQP: Why Message Queueing Between Microservices?</div>
+          <div class="video-label">Covers: Async communication, queue-based fault isolation, decoupling · ~15 min</div>
+        </div>
+        <span class="topic-tag">Async Queues</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=bOPc5iLhKUE" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Your transactional email provider goes down for 2 hours. Users aren't receiving password reset emails. How does a message queue help here, and what would you have needed to implement beforehand?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Without a queue, a failed email send is a lost email — the request was made, the provider was down, it's gone. With a queue, the email request is placed into a durable queue. A worker polls the queue and tries to send; if the provider is down, the message stays in the queue and retries with backoff. When the provider recovers, all queued emails are sent automatically. You'd need to have built this queue-based architecture in advance — it's not something you can add during an incident. This is a good argument for building resilient email infrastructure from the start.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 4 ASSIGNMENT -->
+<div class="module-assignment" id="assign-3">
+  <div class="assignment-header" onclick="togAssign(this)">
+    <span class="assignment-badge">M4 Assignment</span>
+    <span class="assignment-title">📋 Module 4 TPM Competency Assignment</span>
+    <span class="assignment-chevron">▼</span>
+  </div>
+  <div class="assignment-body">
+    <p class="assignment-intro">These tasks develop your ability to read, critique, and create system architecture diagrams — a core TPM skill for contributing to design reviews.</p>
+    <ul class="task-list">
+      <li class="task-item">
+        <div class="task-num">1</div>
+        <div class="task-body">
+          <div class="task-title">Draw a Monolith Architecture Diagram <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Using LucidChart or draw.io (both free), draw a system architecture diagram for a simple e-commerce monolith: one server handling frontend, backend, and database. Label all components. Then redraw it as a microservices architecture (separate User, Product, Order, and Notification services). Annotate the diagram with one trade-off for each architectural choice.</div>
+          <div class="task-tip">💡 This is the exact Skiplevel exercise — complete it on both platforms for certificate credit.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">2</div>
+        <div class="task-body">
+          <div class="task-title">Incident Post-Mortem Write-up <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">Find a public incident post-mortem (GitHub, Cloudflare, and Stripe all publish them). Write a 1-page TPM summary covering: (a) what failed and why, (b) which architectural pattern (load balancing, queues, etc.) would have prevented or reduced the impact, and (c) one process change you would implement as a result. Cite your source.</div>
+          <div class="task-tip">💡 Google "site reliability post-mortem" for dozens of real examples from major companies.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">3</div>
+        <div class="task-body">
+          <div class="task-title">Load Balancing &amp; Queue Design Brief <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">Your product needs to send 50,000 welcome emails when a new market launches. Write a 1-page technical design brief (from a TPM perspective) proposing how to use a message queue to handle this reliably. Address: how emails enter the queue, what the worker does, what happens on failure, and how you'd monitor progress. You don't need to write code — describe the system.</div>
+          <div class="task-tip">💡 Think about this from the user's perspective first: what would a bad experience look like, and how does the queue prevent it?</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ===================== MODULE 5 ===================== -->
+<div class="module-panel" id="panel-4">
+<p class="module-meta">The full build cycle: requirements, design docs, git, testing, CI/CD pipelines, containers, and monitoring.</p>
+
+<!-- 5.1 -->
+<div class="section-block open">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">5.1</span>
+    <span class="section-title">Phase 1: Planning</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">What is SDLC? LifeCycle Explained in 5 Minutes — Intellipaat</div>
+          <div class="video-label">Covers: Planning phase, requirements, user stories, 4 phases of planning · ~5 min</div>
+        </div>
+        <span class="topic-tag">Planning Phase</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=lx14FPSRX0A" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>A product manager writes the user story: "As a user, I want a fast checkout." An engineer says this isn't useful. Why, and how would you rewrite it?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">"Fast" is unmeasurable and provides no acceptance criteria. A better version: "As a returning user, I want to complete checkout in under 3 clicks so that I can purchase without re-entering saved payment details." This gives the engineer a user goal, a measurable success condition, and a reason why. Acceptance criteria would then specify: saved card auto-populates, shipping address pre-filled, single confirmation screen.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>Halfway through sprint planning, engineering discovers a feature will require 3x more work than estimated because of a hidden dependency. What's the TPM's role here?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Your job is to facilitate a rapid decision without derailing the sprint. Options: (1) Scope the feature down to fit the existing estimate — what's the MVP that still delivers value? (2) Move the full feature to the next sprint and replace it with something already estimated. (3) Accept the overrun if the feature is critical, and adjust scope elsewhere. Document the dependency as a known risk for future planning. Ask: was this dependency discoverable earlier? If yes, fix the requirement process.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.2 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">5.2</span>
+    <span class="section-title">Phase 2: Technical Design</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">The SDLC Explained — 7 Phases Every Developer Must Know</div>
+          <div class="video-label">Covers: Proof of concept, tech spec / design doc, tech design review · ~20 min</div>
+        </div>
+        <span class="topic-tag">Tech Spec</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=22QH8DdjAOU" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Engineering skips writing a tech spec for a "simple" feature. Three weeks later the feature causes a major production bug. As a TPM, how do you use this to change the process?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Don't blame — diagnose. Was the feature genuinely simple, or did complexity get underestimated? Use the post-mortem to establish a lightweight rule: any feature touching payments, auth, or data that multiple teams depend on requires a 1-page tech spec minimum, regardless of estimated size. For truly simple changes, a brief design comment in the ticket is fine. The goal isn't bureaucracy — it's surfacing hidden complexity and getting a second set of eyes before code is written.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.3 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">5.3</span>
+    <span class="section-title">Phase 3: Build (Git &amp; Version Control)</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">What is Version Control? Git Explained for Absolute Beginners</div>
+          <div class="video-label">Covers: Git repos, CLI, branches, commit history — no code required · ~15 min</div>
+        </div>
+        <span class="topic-tag">Git Basics</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=VpSxe10UVoc" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Git Explained for Beginners — Version Control Basics</div>
+          <div class="video-label">Covers: Repo structure, branches, pull requests, code reviews · ~18 min</div>
+        </div>
+        <span class="topic-tag">Code Reviews &amp; PRs</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=q7-F8lzpvS4" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>An engineer pushes directly to the main branch (skipping a PR review) to "save time." The change breaks production. How do you handle this as a TPM and what process do you put in place?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Address the immediate incident first: rollback the commit, restore production, communicate status to stakeholders. Then in the retrospective, separate the person from the process — the system allowed this to happen. The fix: protect the main branch so direct pushes are blocked at the repository level (a GitHub/GitLab setting). All changes require a PR with at least one reviewer. This is a technical control, not just a cultural ask, so it actually sticks.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.4 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">5.4</span>
+    <span class="section-title">Phase 4: Testing</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">Software Development Life Cycle: Explained</div>
+          <div class="video-label">Covers: Manual QA, test suites &amp; cases, unit tests, integration tests · ~16 min</div>
+        </div>
+        <span class="topic-tag">QA &amp; Testing</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=SaCYkPD4_K0" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Engineering says they have 80% test coverage. A stakeholder says "great, we're nearly bug-free." How do you correct this misunderstanding?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Test coverage measures how much code is executed by tests — not whether the tests are testing the right things. 80% coverage still means 20% of the code has no tests at all, and the 80% might be testing trivial paths rather than critical edge cases. A checkout flow with 80% coverage could still fail on a specific card type or an unusual address format. The better question is: do we have tests for our most critical user journeys and the failure modes most likely to cause a production incident?</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>QA finds a critical bug two days before launch. Engineering says fixing it will take 3 days. As a TPM, what are your options and how do you decide?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Assess severity and impact: How many users does this affect? Is it a blocker (feature doesn't work) or a degradation (works but poorly)? Options: (1) Delay launch by 3 days — appropriate if the bug affects a core flow. (2) Launch with the bug if it's in a non-critical flow, and fix in a follow-up patch. (3) Scope the launch — exclude the affected feature with a feature flag, launch the rest. Always communicate clearly upward: "Here's the trade-off, here's my recommendation." Avoid "we'll just test more" — that's not a plan.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.5 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">5.5</span>
+    <span class="section-title">Phase 5: Deployment (CI/CD, Containers)</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">CI/CD Pipeline Explained — Intellipaat</div>
+          <div class="video-label">Covers: CI, continuous delivery, deployment rollbacks, feature flagging · ~25 min</div>
+        </div>
+        <span class="topic-tag">CI/CD Pipeline</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=wrZ9nySWpFA" target="_blank">Watch</a>
+      </div>
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">AWS for DevOps: EC2, S3, Containers, Auto Scaling &amp; Load Balancer</div>
+          <div class="video-label">Covers: Containers, portability, deployment environments, AWS pipelines · ~45 min</div>
+        </div>
+        <span class="topic-tag">Containers &amp; AWS</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=YAIgEJdy6N8" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>Product wants to ship a new checkout redesign to all users simultaneously. Engineering proposes a feature flag rollout instead. How do you explain the benefit to a non-technical stakeholder?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">A feature flag lets you turn the new checkout on for 5% of users first — real users, real traffic, but controlled exposure. If something breaks, you flip the flag off in seconds rather than rolling back a full deployment (which takes time and carries risk). You can also roll out to internal users first, then your beta group, then everyone — collecting data at each stage. It separates shipping the code (which happens quietly) from releasing the feature to users (which you control). It's a much safer way to ship something as critical as checkout.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>Your CI/CD pipeline is taking 45 minutes to run. Engineers are merging code less frequently because it's too slow. What are the risks and what should you push engineering to investigate?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">A slow pipeline is a culture problem disguised as a technical one: teams that batch up changes to "save pipeline runs" accumulate bigger, riskier deployments. Ask engineering to profile the pipeline: which step takes the longest? (Usually tests or builds.) Can tests be parallelised? Can we cache build dependencies? Can we run only the tests affected by changed files rather than the full suite? Target is under 10 minutes for most teams. Each minute shaved off the pipeline directly improves how often engineers can safely ship.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.6 -->
+<div class="section-block">
+  <div class="section-header" onclick="tog(this)">
+    <span class="section-badge">5.6</span>
+    <span class="section-title">Phase 6: Maintenance (Telemetry &amp; Monitoring)</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="videos-list">
+      <div class="video-card">
+        <div class="video-info">
+          <div class="video-title">The Secret Life of Software Development — SDLC &amp; Monitoring</div>
+          <div class="video-label">Covers: Telemetry, logs &amp; severity levels, metrics, alerting, dashboards · ~22 min</div>
+        </div>
+        <span class="topic-tag">Monitoring</span>
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=8gqC7OcmCmk" target="_blank">Watch</a>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div class="scenario-wrap">
+      <div class="scenario-header">TPM Scenario Questions</div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 1</div>
+        <p>A major bug was live in production for 6 hours before anyone noticed. Engineering says "we have monitoring." What went wrong and what should you add?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Having monitoring and having effective alerting are different things. Common failure modes: (1) Alerts exist but thresholds are set too high — error rate alert at 50% when the real impact starts at 5%. (2) Alert fatigue — so many low-priority alerts that engineers ignore them. (3) The right metric wasn't tracked — error rates looked fine but conversion rates dropped (a business metric, not a technical one). Push for: tighter alert thresholds on critical paths, synthetic monitoring (automated tests that simulate real user flows every minute), and adding business metrics like checkout completion rate to your alerting dashboard.</div>
+      </div>
+      <div class="scenario-q">
+        <div class="q-label">Scenario 2</div>
+        <p>The VP asks: "Is the new feature we shipped performing well?" Engineering shows a chart of server response time. Is that enough? What else should you be tracking?</p>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="answer-text">Server response time is a technical metric — it tells you the server is fast, not that the feature is succeeding. A complete picture includes: (1) Adoption — what % of users are using the new feature? (2) Completion rate — do they finish the flow or drop off? (3) Error rate — what % of attempts fail? (4) Business impact — has the KPI this feature was built to move (revenue, signups, retention) changed? (5) Support ticket volume — are users confused? As a TPM, your job is to connect the technical metrics to the business metrics in that VP conversation.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 5 ASSIGNMENT -->
+<div class="module-assignment" id="assign-4">
+  <div class="assignment-header" onclick="togAssign(this)">
+    <span class="assignment-badge">M5 Assignment</span>
+    <span class="assignment-title">📋 Module 5 TPM Competency Assignment</span>
+    <span class="assignment-chevron">▼</span>
+  </div>
+  <div class="assignment-body">
+    <p class="assignment-intro">These tasks build your end-to-end SDLC fluency — from writing requirements to running a CI/CD pipeline to defining what "done" means post-launch.</p>
+    <ul class="task-list">
+      <li class="task-item">
+        <div class="task-num">1</div>
+        <div class="task-body">
+          <div class="task-title">Write a Mini Tech Spec <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">Choose a small feature you'd want to add to an app you use. Write a 1-2 page tech spec covering: Problem statement, proposed solution, technical approach (at a high level — which systems are involved), risks and open questions, and definition of done. Use Google Docs and share the link in your portfolio. This is the core TPM planning deliverable.</div>
+          <div class="task-tip">💡 Tip: The best tech specs are written by PMs/TPMs, not just engineers. Yours will be evaluated on clarity and completeness, not code knowledge.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">2</div>
+        <div class="task-body">
+          <div class="task-title">Set Up a CI/CD Pipeline with GitLab <span class="deliverable-tag">Hands-on</span></div>
+          <div class="task-desc">Follow Skiplevel's GitLab exercise: import a sample Git repo, configure a basic CI/CD pipeline (.gitlab-ci.yml), add a deploy step to a production stage. Screenshot each stage running successfully. Write 3 sentences explaining what happened at each stage and why it matters to a non-technical stakeholder.</div>
+          <div class="task-tip">💡 Complete this on Skiplevel too — it's required for certificate credit and this task matches it exactly.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">3</div>
+        <div class="task-body">
+          <div class="task-title">Define a Post-Launch Monitoring Plan <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">For the feature from Task 1, write a 1-page monitoring plan covering: (a) Which technical metrics you'll track (error rate, latency, etc.) and at what alert threshold, (b) Which product metrics you'll track (adoption, completion rate, etc.), (c) What a "successful launch" looks like at 24h, 7 days, and 30 days. This is the document you'd share with engineering and stakeholders at go-live.</div>
+          <div class="task-tip">💡 Tip: The 30-day metric is the one that tells you whether to double down, iterate, or kill the feature.</div>
+        </div>
+      </li>
+      <li class="task-item">
+        <div class="task-num">4</div>
+        <div class="task-body">
+          <div class="task-title">Write a Launch Readiness Checklist <span class="deliverable-tag">Written</span></div>
+          <div class="task-desc">Create a reusable launch checklist for a TPM to use before any feature goes to production. It should cover: testing sign-off, monitoring in place, rollback plan documented, stakeholder communication drafted, support team briefed, and feature flags configured. Make it a real template you'd use in your next job.</div>
+          <div class="task-tip">💡 This is one of the highest-leverage documents a TPM owns. Interviewers love to see this in a portfolio.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div><!-- end panel-4 -->
+
+<script>
+function showModule(idx, el) {
+  document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + idx).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function tog(header) {
+  header.closest('.section-block').classList.toggle('open');
+}
+function togAssign(header) {
+  header.closest('.module-assignment').classList.toggle('open');
+}
+function toggleAnswer(btn) {
+  const ans = btn.nextElementSibling;
+  ans.classList.toggle('visible');
+  btn.textContent = ans.classList.contains('visible') ? 'Hide Answer' : 'Show Answer';
+}
+</script>
+</body>
+</html>
